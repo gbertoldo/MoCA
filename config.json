@@ -1,0 +1,88 @@
+{
+   "Gas":
+   {
+      "SpecificHeatRatio": 1.23
+   },
+
+
+   "Environment":
+   {
+      "PressureRatio": 0.0
+   },
+
+
+   "MoCToolBox":
+   {
+       "MaxIter":      1000,
+       "Tolerance":   1E-10,
+       "MachineZero": 1E-14
+   },
+
+
+   "MoCSolver":                 "NozzleMoCRao",
+   "NozzleWall":  "NozzleWallConicalDivergent",
+
+
+
+   "NozzleInitialLine":
+   {
+       "CurvRadiusAtThroatLeft":            1.5,
+       "InputFile":        "./input/su2_bc.csv",
+       "FieldDelimiter":                     ","
+   },
+
+
+   "NozzleWallConicalDivergent":
+   {
+        "CurvRadiusAtThroatRight":                  0.45,
+        "BuildOption":                  "AngleAndLength",
+        "DivergentAngleDeg":                        15.0,
+        "DivergentLength":        3.0e+00,
+        "DivergentExitRadius":    4.4055871943848759e+00
+   },
+
+
+   "NozzleWallInterpolatedDivergent":
+   {
+        "CurvRadiusAtThroatRight":                                  0.45,
+	"InterpolationOption":                                 "steffen",
+        "InputFile":               "NozzleWallInterpolatedDivergent.csv",
+        "FieldDelimiter":                                            ",",
+        "AngleUnit":                                               "deg"
+   },
+
+
+   "NozzleWallRao":
+   {
+        "CurvRadiusAtThroatRight":      0.45,
+        "ExitMachNumberAtLip":           4.1,
+        "ThtMaxOnCircularExpansionDeg": 40.0
+   },
+
+
+   "NozzleMoCAdaptive":
+   {
+       "dlminus": 0.01,
+       "dlplus": 100.0
+   },
+
+
+  "NozzleMoCRao":
+  {
+        "MoCSolver":      "NozzleMoCAdaptive",
+        "solveUpToX":                    20.0,
+        "NumberOfPointsAlongDE":          100,
+        "fStartBisection":              1.001,
+
+        "RaoControlSurface":
+        {
+            "NumberOfPoints4Interpolation": 1000
+        },
+
+        "RaoNozzleOptContour":
+        {
+            "MaxIter":    1000,
+            "Tolerance": 1E-14
+        }
+  }
+}

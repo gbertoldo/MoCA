@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="MoCA" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Option virtualFolders="Wall/;Utils/;MoCToolBox/;Num/;NozzleMoC/;IO/" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/MoCAxi" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add directory="include" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/MoCAxi" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add directory="include" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-fexceptions" />
+			<Add directory="include" />
+		</Compiler>
+		<Unit filename="include/CSVHandler.h">
+			<Option virtualFolder="Utils/" />
+		</Unit>
+		<Unit filename="include/Driver.h" />
+		<Unit filename="include/IO.h">
+			<Option virtualFolder="IO/" />
+		</Unit>
+		<Unit filename="include/IsentropicFlowRelations.h">
+			<Option virtualFolder="MoCToolBox/" />
+		</Unit>
+		<Unit filename="include/MoCToolBox.h">
+			<Option virtualFolder="MoCToolBox/" />
+		</Unit>
+		<Unit filename="include/MoCVerification.h">
+			<Option virtualFolder="MoCToolBox/" />
+		</Unit>
+		<Unit filename="include/NozzleMoC.h">
+			<Option virtualFolder="NozzleMoC/" />
+		</Unit>
+		<Unit filename="include/NozzleMoCAdaptive.h">
+			<Option virtualFolder="NozzleMoC/" />
+		</Unit>
+		<Unit filename="include/NozzleMoCInterface.h">
+			<Option virtualFolder="NozzleMoC/" />
+		</Unit>
+		<Unit filename="include/NozzleMoCRao.h">
+			<Option virtualFolder="NozzleMoC/" />
+		</Unit>
+		<Unit filename="include/NumIntegration.h">
+			<Option virtualFolder="Num/" />
+		</Unit>
+		<Unit filename="include/NumInterpolation1D.h">
+			<Option virtualFolder="Num/" />
+		</Unit>
+		<Unit filename="include/NumRootFinding.h">
+			<Option virtualFolder="Num/" />
+		</Unit>
+		<Unit filename="include/Numerics.h">
+			<Option virtualFolder="Num/" />
+		</Unit>
+		<Unit filename="include/RaoControlSurface.h">
+			<Option virtualFolder="NozzleMoC/" />
+		</Unit>
+		<Unit filename="include/RaoNozzleOptContour.h">
+			<Option virtualFolder="NozzleMoC/" />
+		</Unit>
+		<Unit filename="include/StringManip.h">
+			<Option virtualFolder="Utils/" />
+		</Unit>
+		<Unit filename="include/Wall.h">
+			<Option virtualFolder="Wall/" />
+		</Unit>
+		<Unit filename="include/WallCircularSection.h">
+			<Option virtualFolder="Wall/" />
+		</Unit>
+		<Unit filename="include/WallConicalDivergent.h">
+			<Option virtualFolder="Wall/" />
+		</Unit>
+		<Unit filename="include/WallInterpolatedDivergent.h">
+			<Option virtualFolder="Wall/" />
+		</Unit>
+		<Unit filename="include/json.hpp">
+			<Option virtualFolder="IO/" />
+		</Unit>
+		<Unit filename="main.cpp" />
+		<Unit filename="src/CSVHandler.cpp">
+			<Option virtualFolder="Utils/" />
+		</Unit>
+		<Unit filename="src/Driver.cpp" />
+		<Unit filename="src/IO.cpp">
+			<Option virtualFolder="IO/" />
+		</Unit>
+		<Unit filename="src/IsentropicFlowRelations.cpp">
+			<Option virtualFolder="MoCToolBox/" />
+		</Unit>
+		<Unit filename="src/MoCToolBox.cpp">
+			<Option virtualFolder="MoCToolBox/" />
+		</Unit>
+		<Unit filename="src/NozzleMoC.cpp">
+			<Option virtualFolder="NozzleMoC/" />
+		</Unit>
+		<Unit filename="src/NozzleMoCAdaptive.cpp">
+			<Option virtualFolder="NozzleMoC/" />
+		</Unit>
+		<Unit filename="src/NozzleMoCRao.cpp">
+			<Option virtualFolder="NozzleMoC/" />
+		</Unit>
+		<Unit filename="src/NumIntegration.cpp">
+			<Option virtualFolder="Num/" />
+		</Unit>
+		<Unit filename="src/NumInterpolation1D.cpp">
+			<Option virtualFolder="Num/" />
+		</Unit>
+		<Unit filename="src/NumRootFinding.cpp">
+			<Option virtualFolder="Num/" />
+		</Unit>
+		<Unit filename="src/RaoControlSurface.cpp">
+			<Option virtualFolder="NozzleMoC/" />
+		</Unit>
+		<Unit filename="src/RaoNozzleOptContour.cpp">
+			<Option virtualFolder="NozzleMoC/" />
+		</Unit>
+		<Unit filename="src/Wall.cpp">
+			<Option virtualFolder="Wall/" />
+		</Unit>
+		<Unit filename="src/WallConicalDivergent.cpp">
+			<Option virtualFolder="Wall/" />
+		</Unit>
+		<Unit filename="src/WallInterpolatedDivergent.cpp">
+			<Option virtualFolder="Wall/" />
+		</Unit>
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<lib_finder disable_auto="1" />
+			<fortran_project />
+			<debugger />
+			<DoxyBlocks>
+				<comment_style block="0" line="0" />
+				<doxyfile_project />
+				<doxyfile_build extract_all="1" />
+				<doxyfile_warnings />
+				<doxyfile_output />
+				<doxyfile_dot class_diagrams="1" have_dot="1" />
+				<general />
+			</DoxyBlocks>
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
