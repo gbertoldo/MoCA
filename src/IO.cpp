@@ -24,6 +24,7 @@
 #include <exception>
 #include "IO.h"
 #include "CSVHandler.h"
+#include "KliegelLevineBoundaryLine.h"
 
 namespace io
 {
@@ -93,32 +94,71 @@ std::vector<MoCPoint> loadInitialLine(MoCToolBox& MoC)
     // Boundary line
     std::vector<MoCPoint> bline;
 
-    std::string filename        = configParameters["NozzleInitialLine"]["InputFile"];
-    std::string fieldDelimiter  = configParameters["NozzleInitialLine"]["FieldDelimiter"];
+    bool          loadFromFile  = configParameters["NozzleInitialLine"]["LoadFromFile"];
 
-    csv::CSVFile csvfile(filename.c_str(), fieldDelimiter[0]);
-
-    csvfile.load({});
-
-    auto x   = csv::cast_to_vector<double>(csvfile.submatrix(1,csvfile.nrows()-1,0,0));
-    auto y   = csv::cast_to_vector<double>(csvfile.submatrix(1,csvfile.nrows()-1,1,1));
-    auto M   = csv::cast_to_vector<double>(csvfile.submatrix(1,csvfile.nrows()-1,2,2));
-    auto tht = csv::cast_to_vector<double>(csvfile.submatrix(1,csvfile.nrows()-1,3,3));
-
-    for (size_t i=0; i<x.size(); ++i)
+    // Loading data from file
+    if ( loadFromFile )
     {
-        MoCPoint p;
+        std::string       filename  = configParameters["NozzleInitialLine"]["InputFile"];
+        std::string fieldDelimiter  = configParameters["NozzleInitialLine"]["FieldDelimiter"];
 
-        p.x   = x[i];
-        p.r   = y[i];
-        p.M   = M[i];
-        p.tht = tht[i];
+        csv::CSVFile csvfile(filename.c_str(), fieldDelimiter[0]);
 
-        // Calculating mu and nu
-        p.mu = MoC.mu(p.M);
-        p.nu = MoC.nu(p.M);
+        csvfile.load({});
 
-        bline.push_back(std::move(p));
+        auto x   = csv::cast_to_vector<double>(csvfile.submatrix(1,csvfile.nrows()-1,0,0));
+        auto y   = csv::cast_to_vector<double>(csvfile.submatrix(1,csvfile.nrows()-1,1,1));
+        auto M   = csv::cast_to_vector<double>(csvfile.submatrix(1,csvfile.nrows()-1,2,2));
+        auto tht = csv::cast_to_vector<double>(csvfile.submatrix(1,csvfile.nrows()-1,3,3));
+
+        for (size_t i=0; i<x.size(); ++i)
+        {
+            MoCPoint p;
+
+            p.x   = x[i];
+            p.r   = y[i];
+            p.M   = M[i];
+            p.tht = tht[i];
+
+            // Calculating mu and nu
+            p.mu = MoC.mu(p.M);
+            p.nu = MoC.nu(p.M);
+
+            bline.push_back(std::move(p));
+        }
+    }
+    // Generating initial line by the Kliegel-Levine approach
+    else
+    {
+        // Reading parameters
+        double gamma  = configParameters["Gas"]["SpecificHeatRatio"];
+        double    Rc  = configParameters["NozzleInitialLine"]["CurvRadiusAtThroatLeft"];
+        size_t    Np  = configParameters["NozzleInitialLine"]["NumOfPoints"];
+        size_t   Nit  = configParameters["NozzleInitialLine"]["MaxIter"];
+        double   tol  = configParameters["NozzleInitialLine"]["Tolerance"];
+
+        // Creating the Kliegel-Levine calculator
+        KliegelLevineBoundaryLine kl(gamma, Rc, Nit, tol);
+
+        // Generating a Mach line that passes through the nozzle throat and contains Np points
+        auto line = kl.MachLineThroughTheThroat(Np);
+
+        // Generating MoCPoints from the Mach line
+        for (size_t i=0; i<line.size(); ++i)
+        {
+            MoCPoint p;
+
+            p.x   = (line[i]).z;
+            p.r   = (line[i]).r;
+            p.M   = (line[i]).M;
+            p.tht = (line[i]).tht;
+
+            // Calculating mu and nu
+            p.mu = MoC.mu(p.M);
+            p.nu = MoC.nu(p.M);
+
+            bline.push_back(std::move(p));
+        }
     }
 
     return bline;

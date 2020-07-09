@@ -26,9 +26,14 @@
 
    "NozzleInitialLine":
    {
-       "CurvRadiusAtThroatLeft":            1.5,
+       "#Comment": "Options: load from file or use Kliegel-Levine solution",
+       "LoadFromFile":                    false,
        "InputFile":        "./input/su2_bc.csv",
-       "FieldDelimiter":                     ","
+       "FieldDelimiter":                    ",",
+       "CurvRadiusAtThroatLeft":            1.5,
+       "NumOfPoints":                        41,
+       "MaxIter":                          1000,
+       "Tolerance":                       1E-14
    },
 
 
@@ -55,7 +60,7 @@
    "NozzleWallRao":
    {
         "CurvRadiusAtThroatRight":      0.45,
-        "ExitMachNumberAtLip":           4.1,
+        "ExitMachNumberAtLip":           3.5,
         "ThtMaxOnCircularExpansionDeg": 40.0
    },
 
