@@ -8,27 +8,32 @@ O código *MoCA* resolve o escoamento compressível de gases através de tubeira
 - a rede de características com a distribuição do número de Mach, do ângulo do vetor velocidade com relação à direção axial;
 - os contornos do domínio de cálculo.
 
-## Como compilar o código fonte
+## Como compilar o código fonte no Linux
 
 Pré-requisitos para compilação:
 
 - compilador para C++ (Sugestão: GNU g++)
 - biblioteca científica GNU (GSL - GNU Scientific Library)
+- CodeBlocks IDE (recomendado)
+
+Para mais detalhes sobre a instalação da biblioteca GSL e do CodeBlocks, assista a este [vídeo](https://www.youtube.com/watch?v=9WZDAnqw8nY&t=7s).
+
+Caso tenha instalado o CodeBlocks, abra o arquivo do projeto *MoCA.cbp* e compile o código. O executável será gerado em um dos diretórios *./bin/Debug* ou *./bin/Release*, dependendo da opção de compilação.
 
 ## Como usar o programa
 
 Basta executar o seguinte comando em um terminal
 ```
-MoCA <config.json>
+<nome do executável> <config.json>
 ```
-onde `config.json` é o nome do arquivo de configuração. Este arquivo deve estar no formato [json](https://www.json.org/json-en.html).
+onde `nome do executável` é o nome do executável gerado na compilação e `config.json` é o nome do arquivo de configuração. O arquivo de configuração deve estar no formato [json](https://www.json.org/json-en.html).
 
 ## Parâmetros de configuração
 
-Os parâmetros de configuração são apresentados a seguir, juntamente com as opções disponíveis. É importante destacar que todas as variáveis com dimensão de comprimento devem ser parametrizadas em termos do raio da garganta da tubeira. Por exemplo, se o raio da garganta for 15 mm e o comprimento do divergente for 60 mm, então as respectivas variáveis parametrizadas serão 1 e 4.
+Os parâmetros de configuração são apresentados a seguir, juntamente com as opções disponíveis. É importante destacar que todas as variáveis com dimensão de comprimento devem ser parametrizadas em termos do raio da garganta da tubeira. Por exemplo, se o raio da garganta for 15 mm e o comprimento da seção divergente for 60 mm, então as respectivas variáveis parametrizadas serão 1 e 4.
 ### Propriedades do gás
 
-Informe a razão de calores específicos para caracterizar o gás:
+Informe a razão de calores específicos para caracterizar o gás. Por exemplo:
 
 ```
    "Gas":
@@ -40,7 +45,7 @@ Informe a razão de calores específicos para caracterizar o gás:
 
 ### Propriedades do ambiente
 
-Informe a razão entre a pressão ambiente (para onde o gás da tubeira será descarregando) e a pressão de estagnação:
+Informe a razão entre a pressão ambiente (para onde o gás da tubeira será descarregando) e a pressão de estagnação. Por exemplo:
 
 ```
    "Environment":
@@ -50,7 +55,7 @@ Informe a razão entre a pressão ambiente (para onde o gás da tubeira será de
 ```
 
 ### MoCToolBox
-O MoCToolBox é uma classe que implementa as operações unitárias para gerar a rede de características. Para configurá-la informe o número máximo de iterações no método preditor-corretor *MaxIter*, a tolerância para a diferença absoluta no número de Mach entre duas iterações *Tolerance* e o valor *MachineZero*, abaixo do qual a coordenada radial será tomada como aproximadamente zero:
+O MoCToolBox é uma classe que implementa as operações unitárias para gerar a rede de características. Para configurá-la, informe o número máximo de iterações no método preditor-corretor *MaxIter*, a tolerância para a diferença absoluta no número de Mach entre duas iterações *Tolerance* e o valor *MachineZero*, abaixo do qual a coordenada radial será tomada como aproximadamente zero. Por exemplo:
 
 ```
    "MoCToolBox":
@@ -63,11 +68,11 @@ O MoCToolBox é uma classe que implementa as operações unitárias para gerar a
 
 ### Linha inicial
 
-A linha inicial fornece as condições de contorno para gerar as primeiras características. Esta linha deve estar em uma região suficientemente supersônica do escoamento Ref. [3]. A linha inicial pode ser carregada de um arquivo de texto ou gerada pelo código a partir da solução de Kliegel-Levine [4]. 
+A linha inicial fornece as condições de contorno para gerar as primeiras características. Esta linha deve estar em uma região suficientemente supersônica do escoamento Ref. [3]. A linha inicial pode ser carregada de um arquivo de texto ou ser gerada pelo código a partir da solução de Kliegel-Levine [4]. 
 
 Para carregar a linha inicial, defina *LoadFromFile* como *true*, indique o arquivo de entrada em *InputFile*, o delimitador de campo em *FieldDelimiter*. O arquivo deve conter quatro colunas com as seguintes informações: a coordenada longitudinal *x*, a coordenada radial *r* ou *y*, o número de Mach *M* e  o ângulo (em radianos) do vetor velocidade relativo ao sentido positivo do eixo axial.
 
-Para gerar a linha inicial com a solução de Kliegel-Levine, defina *LoadFromFile* como *false*, indique o raio de curvatura da parede na garganta *CurvRadiusAtThroatLeft*. Como este raio de curvatura pode assumir valores diferentes à direita e à esquerda da garganta, deve-se ressaltar que *CurvRadiusAtThroatLeft* refere-se ao raio de curvatura à esquerda da garganta (lado do convergente). Informe, também, o número de pontos ao longo da linha *NumOfPoints*, o número máximo de iterações *MaxIter* e a tolerância *Tolerance* para gerar a linha inicial de tal modo que o número de Mach seja constante.
+Para gerar a linha inicial com a solução de Kliegel-Levine, defina *LoadFromFile* como *false*, indique o raio de curvatura da parede na garganta *CurvRadiusAtThroatLeft*. Como este raio de curvatura pode assumir valores diferentes à direita e à esquerda da garganta, deve-se ressaltar que *CurvRadiusAtThroatLeft* refere-se ao raio de curvatura à esquerda da garganta (lado da seção convergente). Informe, também, o número de pontos ao longo da linha *NumOfPoints*, o número máximo de iterações *MaxIter* e a tolerância *Tolerance* para gerar a linha inicial de tal modo que o número de Mach seja constante. Por exemplo:
  
 ```
    "NozzleInitialLine":
@@ -85,7 +90,7 @@ Para gerar a linha inicial com a solução de Kliegel-Levine, defina *LoadFromFi
 
 ### NozzleWall
 
-*NozzleWall* é uma classe abstrata para representar a parede da tubeira. Para executar a simulação, é preciso especificar a classe concreta que representará a parede utilizada:
+*NozzleWall* é uma classe abstrata para representar a parede da tubeira. Para executar a simulação, é preciso especificar a classe concreta que representará a parede utilizada. Por exemplo:
 
 ```
    "NozzleWall":  "NozzleWallConicalDivergent"
@@ -102,11 +107,11 @@ As opções disponíveis são:
 
 *NozzleWallConicalDivergent* define a parede da seção divergente da tubeira. Esta parede é formada por um arco de circunferência de raio *CurvRadiusAtThroatRight* seguido por um segmento de reta (seção cônica). Defina a forma de construção da seção em *BuildOption*. As opções disponíveis são:
 
-- *AngleAndLength*: define o ângulo e o comprimento da seção divergente;
-- *AngleAndExitRadius*: define o ângulo e o raio de saída da seção divergente;
+- *AngleAndLength*: define o semiângulo da seção cônica e o comprimento da seção divergente;
+- *AngleAndExitRadius*: define o semiângulo da seção cônica e o raio de saída da seção divergente;
 - *LengthAndExitRadius*: define o comprimento e o raio de saída da seção divergente;
 
-Defina o ângulo (em graus) da seção divergente em *DivergentAngleDeg*, o comprimento do divergente em *DivergentLength* e o raio de saída da seção divergente em *DivergentExitRadius*.
+Defina o semiângulo (em graus) da seção cônica em *DivergentAngleDeg*, o comprimento da seção divergente em *DivergentLength* e o raio de saída da seção divergente em *DivergentExitRadius*.
 
 ```
    "NozzleWallConicalDivergent":
