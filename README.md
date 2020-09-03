@@ -47,7 +47,7 @@ Pré-requisitos para compilação:
 
 Para mais detalhes sobre a instalação da biblioteca GSL e do CodeBlocks, assista a este [vídeo](https://www.youtube.com/watch?v=9WZDAnqw8nY&t=7s).
 
-Caso tenha instalado o CodeBlocks, abra o arquivo do projeto *MoCA.cbp* e compile o código. O executável será gerado em um dos diretórios *./bin/Debug* ou *./bin/Release*, dependendo da opção de compilação.
+Caso tenha instalado o CodeBlocks, abra o arquivo do projeto *MoCA.cbp* e [compile](https://youtu.be/aQi8TOt6X2o) o código. O executável será gerado em um dos diretórios *./bin/Debug* ou *./bin/Release*, dependendo da opção de compilação.
 
 ## Como usar o programa
 
@@ -55,7 +55,7 @@ Basta executar o seguinte comando em um terminal
 ```
 <nome do executável> <config.json>
 ```
-onde `nome do executável` é o nome do executável gerado na compilação e `config.json` é o nome do arquivo de configuração. O arquivo de configuração deve estar no formato [json](https://www.json.org/json-en.html).
+onde `nome do executável` é o nome do executável gerado na compilação e `config.json` é o nome do arquivo de configuração. O arquivo de configuração deve estar no formato [json](https://www.json.org/json-en.html). Para mais detalhes, veja o seguinte [vídeo](https://youtu.be/aQi8TOt6X2o).
 
 ## Parâmetros de configuração
 
