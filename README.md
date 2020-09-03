@@ -24,7 +24,7 @@ Comparação entre resultados obtidos com o código MoCA e os resultados de Rao 
 
 </center>
 
-O coeficiente de empuxo obtido com o MoCA para o perfil otimizado de Rao também foi comparado com a solução obtida com o software [SU2](https://su2code.github.io/), veja a tabela a seguir. Na simulação com o SU2, considerou-se quatro malhas, 200x10 a 1600x80, com refino uniforme, e o coeficiente de empuxo foi calculado com múltiplas extrapolações de Richardson. O valor 1,7429(2) representa 1,7429+-0,0002. A tabela também apresenta os coeficientes de empuxo para uma tubeira com divergente cônico com o mesmo comprimento e raio de saída do perfil otimizado. A diferença relativa (DR) entre as soluções do MoCA e do SU2 é menor ou igual a 0,05%.
+O coeficiente de empuxo obtido com o MoCA para o perfil otimizado de Rao também foi comparado com a solução obtida com o software [SU2](https://su2code.github.io/), veja a tabela a seguir. Na simulação com o SU2, considerou-se quatro malhas, 200x10 a 1600x80, com refino uniforme, e o coeficiente de empuxo foi calculado com múltiplas extrapolações de Richardson. O valor 1,7429(2) representa 1,7429+-0,0002. A tabela também apresenta os coeficientes de empuxo para uma tubeira com divergente cônico com o mesmo comprimento e raio de saída do perfil otimizado. A diferença relativa (DR) entre as soluções do MoCA e do SU2 é menor ou igual a 0,05%. O tempo de simulação do código MoCA foi de cerca de 2 s, enquanto o SU2 na malha 1600x80 levou cerca de 13 min.
 <center>
 
 |         |  MoCA |         SU2 | DR \(%\) |
