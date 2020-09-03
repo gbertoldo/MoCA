@@ -15,7 +15,9 @@ O artigo de Rao [1] contém dois exemplos de aplicação do método de otimizaç
 <center>
 
 ![](./doc/v1.0.0/Fig/r.png)
+
 ![](./doc/v1.0.0/Fig/M.png)
+
 ![](./doc/v1.0.0/Fig/tht.png)
 
 Comparação entre resultados obtidos com o código MoCA e os resultados de Rao [1].
