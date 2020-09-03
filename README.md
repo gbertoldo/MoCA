@@ -4,9 +4,36 @@
 ## Breve descrição
 O código *MoCA* resolve o escoamento compressível de gases através de tubeiras de simetria axial utilizando o método das características [1]. O perfil da tubeira pode ser prescrito pelo usuário ou pode ser determinado pelo método de Rao [2] para que maximize o coeficiente de empuxo. Os resultados produzidos incluem:
 
-- o coeficiente de empuxo;
-- a rede de características com a distribuição do número de Mach, do ângulo do vetor velocidade com relação à direção axial;
+- o coeficiente de empuxo $C_t$;
+- a rede de características com a distribuição do número de Mach, do ângulo $\theta$ do vetor velocidade com relação à direção axial;
 - os contornos do domínio de cálculo.
+
+## Resultados
+
+O artigo de Rao [1] contém dois exemplos de aplicação do método de otimização proposto pelo autor. O primeiro exemplo foi utilizado para avaliar os resultados produzidos pelo código MoCA. As três figuras abaixo apresentam, nesta ordem, as coordenadas do perfil otimizado, a distribuição do número de Mach sobre o perfil otimizado e a inclinação local do perfil otimizado.
+
+<center>
+
+![](./doc/v1.0.0/Fig/r.png)
+![](./doc/v1.0.0/Fig/M.png)
+![](./doc/v1.0.0/Fig/tht.png)
+
+Comparação entre resultados obtidos com o código MoCA e os resultados de Rao [1].
+
+</center>
+
+O coeficiente de empuxo $C_t$ obtido com o MoCA para o perfil otimizado de Rao também foi comparado com a solução obtida com o software [SU2](https://su2code.github.io/), veja a tabela a seguir. Na simulação com o SU2, considerou-se quatro malhas, 200x10 a 1600x80, com refino uniforme, e o coeficiente de empuxo foi calculado com múltiplas extrapolações de Richardson. O valor 1,7429\(2\) representa 1,7429$\pm$0,0002. A tabela também apresenta os coeficientes de empuxo para uma tubeira com divergente cônico com o mesmo comprimento e raio de saída do perfil otimizado. A diferença relativa (DR) entre as soluções do MoCA e do SU2 é menor ou igual a 0,05%.
+<center>
+
+|         |  MoCA |         SU2 | DR \(%\) |
+|---------|-------|-------------|----------|
+|     Rao | 1,743 | 1,7429\(2\) | −0,004   |
+|    Cone | 1,725 | 1,7261\(1\) |  0,050   |
+
+</center>
+: Comparação do coeficiente de empuxo $C_t$ obtidos com o código MoCA e com o SU2 para o perfil otimizado de Rao e para um cone com o mesmo comprimento e raio de saída.
+
+Para mais detalhes sobre estes resultados, veja a [documentação](https://github.com/gbertoldo/MoCA/tree/master/doc) disponível no repositório.
 
 ## Como compilar o código fonte no Linux
 
@@ -157,9 +184,11 @@ O divergente da tubeira otimizada de Rao é formado por uma seção circular (TB
         "ThtMaxOnCircularExpansionDeg": 40.0
    }
 ```
-![](./doc/v1.0.x/Rao/fig/nozzle.png)
+<center>
+![](./doc/v1.0.0/Fig/nozzle.png)
 
 Fonte: Ref.[2].
+</center>
 
 ### MoCSolver
 *MoCSolver* é uma classe abstrata para resolver o escoamento na tubeira. Para executar a simulação, é preciso especificar a classe concreta que será utilizada:
